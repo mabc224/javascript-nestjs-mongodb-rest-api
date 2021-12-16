@@ -1,0 +1,63 @@
+{
+  "name": "restaurant-assignment",
+  "description": "",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mabc224/restaurant-assignment.git"
+  },
+  "author": "",
+  "license": "UNLICENSED",
+  "private": true,
+  "scripts": {
+    "format": "eslint --ext .js --fix src/",
+    "lint": "eslint --ext .js src/",
+    "start": "npm run format && babel-node index.js",
+    "start:dev": "npm run format && nodemon",
+    "build": "npm run lint && babel src -d dist --ignore **/*.js",
+    "start:prod": "node dist/main",
+    "test": "npm run lint && jest --coverage"
+  },
+  "dependencies": {
+    "@babel/runtime": "^7.15.4",
+    "@nestjs/common": "^8.1.1",
+    "@nestjs/config": "^1.0.2",
+    "@nestjs/core": "^8.1.1",
+    "@nestjs/microservices": "^8.1.1",
+    "@nestjs/platform-express": "^8.1.2",
+    "dotenv": "^10.0.0",
+    "lodash": "^4.17.21",
+    "nest-winston": "^1.6.1",
+    "reflect-metadata": "^0.1.13",
+    "rxjs": "^7.4.0",
+    "uuid": "^8.3.2",
+    "winston": "^3.3.3"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.15.7",
+    "@babel/core": "^7.15.8",
+    "@babel/eslint-parser": "^7.15.8",
+    "@babel/node": "^7.15.8",
+    "@babel/plugin-proposal-decorators": "^7.15.8",
+    "@babel/plugin-transform-runtime": "^7.15.8",
+    "@babel/preset-env": "^7.15.8",
+    "@babel/register": "^7.15.3",
+    "@nestjs/testing": "^8.1.1",
+    "eslint": "^8.0.1",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-plugin-import": "^2.25.2",
+    "eslint-plugin-jest": "^25.2.2",
+    "jest": "27.3.0",
+    "nodemon": "^2.0.13"
+  },
+  "jest": {
+    "moduleFileExtensions": [
+      "js",
+      "json"
+    ],
+    "rootDir": "src",
+    "testRegex": ".spec.js$",
+    "coverageDirectory": "../coverage"
+  }
+}
