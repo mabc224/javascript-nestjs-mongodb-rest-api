@@ -3,6 +3,7 @@ import { ConfigModule } from '@nestjs/config';
 import { LoggerMiddleware } from './middlewares';
 import { DatabaseModule } from './modules';
 import { RestaurantController, RestaurantMenuController } from './controllers';
+import { RestaurantService, RestaurantMenuService } from './services';
 
 @Module({
   imports: [
@@ -13,7 +14,11 @@ import { RestaurantController, RestaurantMenuController } from './controllers';
     RestaurantController,
     RestaurantMenuController,
   ],
-  providers: [Logger],
+  providers: [
+    Logger,
+    RestaurantService,
+    RestaurantMenuService,
+  ],
 })
 export default class GatewayModule {
   configure(consumer) {
