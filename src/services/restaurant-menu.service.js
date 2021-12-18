@@ -1,9 +1,9 @@
 import { Dependencies, Injectable, Logger } from '@nestjs/common';
-import { InjectModel } from '@nestjs/mongoose';
+import { getModelToken } from '@nestjs/mongoose';
 import { restaurantMenu } from '../schemas';
 
 @Injectable()
-@Dependencies(InjectModel(restaurantMenu.modelName))
+@Dependencies(getModelToken(restaurantMenu.modelName))
 export default class RestaurantMenuService {
   constructor(restaurantMenuModel) {
     this.RestaurantMenuModel = restaurantMenuModel;
@@ -16,8 +16,7 @@ export default class RestaurantMenuService {
    *********************************** */
 
   async createRestaurantMenu(request) {
-    const createdRestaurantMenu = new this.RestaurantMenuModel(request);
-    return createdRestaurantMenu.save();
+    return this.RestaurantMenuModel.create(request);
   }
 
   async listRestaurantMenus(query = {}, skip = 0, limit = 10, sort = {}) {
@@ -28,7 +27,7 @@ export default class RestaurantMenuService {
       .exec();
   }
 
-  getRestaurantMenu(query = {}) {
+  async getRestaurantMenu(query = {}) {
     return this.RestaurantMenuModel.findOne(query).exec();
   }
 
@@ -38,5 +37,9 @@ export default class RestaurantMenuService {
 
   async deleteRestaurantMenu(query) {
     return this.RestaurantMenuModel.deleteOne(query).lean();
+  }
+
+  async countRestaurantMenus(query) {
+    return this.RestaurantMenuModel.countDocuments(query);
   }
 }
