@@ -7,7 +7,6 @@ import { restaurant } from '../schemas';
 export default class RestaurantService {
   constructor(restaurantModel) {
     this.RestaurantModel = restaurantModel;
-    console.log(this.RestaurantModel);
 
     this.logger = new Logger('restaurant.service');
   }
@@ -17,7 +16,6 @@ export default class RestaurantService {
    *********************************** */
 
   async createRestaurant(request) {
-    console.log(this.RestaurantModel);
     return this.RestaurantModel.create(request);
   }
 
