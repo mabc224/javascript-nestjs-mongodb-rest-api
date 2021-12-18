@@ -32,3 +32,12 @@ $ npm run start:prod
 # tests
 $ npm test
 ```
+
+
+## API Documentation
+
+Import open api docs into postman as collection.
+
+```shell
+  docs/restaurant-api-v0.1.yaml
+```
