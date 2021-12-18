@@ -2,7 +2,6 @@
   "name": "restaurant-assignment",
   "description": "",
   "version": "1.0.0",
-  "main": "index.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/mabc224/restaurant-assignment.git"
