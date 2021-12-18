@@ -51,7 +51,6 @@ Import open api docs into postman as collection.
 ├── index.js
 ├── nest-cli.json
 ├── nodemon.json
-├── out.txt
 ├── package-lock.json
 ├── package.json
 ├── README.md
@@ -79,8 +78,9 @@ Import open api docs into postman as collection.
    └── services
       ├── index.js
       ├── restaurant-menu.service.js
-      └── restaurant.service.js
-
+      ├── restaurant-menu.service.spec.js
+      ├── restaurant.service.js
+      └── restaurant.service.spec.js
 ```
 
 ### Next Steps
