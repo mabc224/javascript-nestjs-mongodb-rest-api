@@ -97,7 +97,9 @@ export default class RestaurantController {
   @Bind(Body(), Param())
   async updateRestaurant(body, params) {
     const { restaurantId } = params;
-    const { name, picture, address } = body;
+    const {
+      name, picture, address, openingHours = [],
+    } = body;
 
     const update = {};
 
@@ -109,6 +111,9 @@ export default class RestaurantController {
     }
     if (address) {
       update.address = address;
+    }
+    if (openingHours) {
+      update.openingHours = openingHours;
     }
     update.updatedAt = Math.floor(Date.now() / 1000);
 
