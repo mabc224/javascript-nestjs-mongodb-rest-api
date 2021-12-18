@@ -1,12 +1,12 @@
 {
-  "name": "restaurant-assignment",
-  "description": "",
+  "name": "javascript-nestjs-mongodb-rest-api",
+  "description": "Rest api of restaurant using Nestjs with javascript & mongoose",
   "version": "1.0.0",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/mabc224/restaurant-assignment.git"
+    "url": "git+https://github.com/mabc224/javascript-nestjs-mongodb-rest-api.git"
   },
-  "author": "",
+  "author":  "Arsalan Bilal <mabc224@gmail.com> (http://arsalanbilal.com)",
   "license": "UNLICENSED",
   "private": true,
   "scripts": {
