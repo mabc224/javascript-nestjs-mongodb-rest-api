@@ -1,6 +1,6 @@
-# Restaurant-Assignment
+# Restaurant Rest API
 
-About restaurants & it's menus
+Rest api of restaurant using Nestjs with javascript flavour & mongoose
 
 ## Configuration
 
