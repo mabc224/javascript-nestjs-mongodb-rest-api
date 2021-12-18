@@ -1,0 +1,343 @@
+openapi: 3.0.0
+info:
+  title: Restaurant-API
+  description: |
+    ## Welcome to the Restaurant API docs.
+
+    ### Importing into Postman as collection
+    You can import this into Postman (it will create a collection).
+  contact:
+    email: mabc224@gmail.com
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: "0.1"
+servers:
+  - url: http://localhost:4000
+tags:
+  - name: Restaurant
+  - name: Restaurant-Menu
+paths:
+  /v0.1/restaurants:
+    get:
+      tags:
+        - Restaurant
+      summary: GET /
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestaurantList'
+    post:
+      tags:
+        - Restaurant
+      summary: POST /
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                name: restaurant 1-3
+                picture: url
+                address: lhr
+                openingHours:
+                  dayOfweek: 1
+                  open: 540
+                  close: 1050
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Restaurant'
+  /v0.1/restaurants/{restaurantId}:
+    get:
+      tags:
+        - Restaurant
+      summary: GET /:id
+      parameters:
+        - name: restaurantId
+          in: path
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Restaurant'
+    put:
+      tags:
+        - Restaurant
+      summary: PUT /:id
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                name: restaurant 1-3
+                picture: url
+                address: lhr
+                openingHours:
+                  dayOfweek: 1
+                  open: 540
+                  close: 1050
+      parameters:
+        - name: restaurantId
+          in: path
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Restaurant'
+    delete:
+      tags:
+        - Restaurant
+      summary: DEL /:id
+      parameters:
+        - name: restaurantId
+          in: path
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /v0.1/restaurants/{restaurantId}/menus:
+    get:
+      tags:
+        - Restaurant-Menu
+      summary: GET /
+      parameters:
+        - name: restaurantId
+          in: path
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestaurantMenuList'
+    post:
+      tags:
+        - Restaurant-Menu
+      summary: POST /
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                name: Chicken Bread
+                price: 1
+                category: bread
+                picture: url
+      parameters:
+        - name: restaurantId
+          in: path
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestaurantMenu'
+  /v0.1/restaurants/{restaurantId}/menus/{menuId}:
+    get:
+      tags:
+        - Restaurant-Menu
+      summary: GET /:id
+      parameters:
+        - name: restaurantId
+          in: path
+          schema:
+            type: string
+          required: true
+        - name: menuId
+          in: path
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestaurantMenu'
+    put:
+      tags:
+        - Restaurant-Menu
+      summary: PUT /:id
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                name: Chicken Bread 2
+                price: 11
+                category: bread
+                picture: url
+      parameters:
+        - name: restaurantId
+          in: path
+          schema:
+            type: string
+          required: true
+        - name: menuId
+          in: path
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestaurantMenu'
+    delete:
+      tags:
+        - Restaurant-Menu
+      summary: DEL /:id
+      parameters:
+        - name: restaurantId
+          in: path
+          schema:
+            type: string
+          required: true
+        - name: menuId
+          in: path
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+
+components:
+  schemas:
+    RestaurantBasic:
+      type: object
+      properties:
+        name:
+          type: string
+          example: bQs
+        picture:
+          type: string
+          example: url
+        address:
+          type: string
+          example: Lahore
+    Restaurant:
+      allOf:
+        - $ref: '#/components/schemas/RestaurantBasic'
+        - $ref: '#/components/schemas/Timestamps'
+        - type: object
+          properties:
+            openingHours:
+              type: array
+              items:
+                properties:
+                  dayOfweek:
+                    type: string
+                    example: Monday
+                  open:
+                    type: string
+                    example: 9:00 AM
+                  close:
+                    type: string
+                    example: 5:00 PM
+    RestaurantList:
+      allOf:
+        - type: object
+          properties:
+            restaurants:
+              type: array
+              items:
+                $ref: '#/components/schemas/Restaurant'
+        - $ref: '#/components/schemas/Pagination'
+
+    RestaurantMenuBasic:
+      type: object
+      properties:
+        name:
+          type: string
+          example: url
+        picture:
+          type: string
+          example: url
+        price:
+          type: number
+          example: 10
+        category:
+          type: string
+          example: sweat
+    RestaurantMenu:
+      allOf:
+        - $ref: '#/components/schemas/RestaurantMenuBasic'
+        - $ref: '#/components/schemas/Timestamps'
+    RestaurantMenuList:
+      allOf:
+        - type: object
+          properties:
+            menus:
+              type: array
+              items:
+                $ref: '#/components/schemas/RestaurantMenu'
+        - $ref: '#/components/schemas/Pagination'
+
+    Pagination:
+      type: object
+      properties:
+        page:
+          type: integer
+          readOnly: true
+          description: page number
+          example: 1
+        perPage:
+          type: integer
+          readOnly: true
+          description: per page records
+          example: 10
+        totalCount:
+          type: integer
+          readOnly: true
+          description: Total records
+          example: 100
+    Timestamps:
+      type: object
+      properties:
+        createdAt:
+          type: string
+          readOnly: true
+          format: timestamp
+          example: "2021-12-18T00:00:00.000Z"
+        updatedAt:
+          type: string
+          readOnly: true
+          format: timestamp
+          example: "2021-12-18T00:00:00.000Z"
