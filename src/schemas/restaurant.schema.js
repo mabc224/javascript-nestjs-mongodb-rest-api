@@ -11,6 +11,11 @@ const restaurantDefinition = {
   address: {
     type: String,
   },
+  openingHours: [{
+    dayOfWeek: Number,
+    open: Number,
+    close: Number,
+  }],
   createdAt: Number,
   updatedAt: Number,
 };

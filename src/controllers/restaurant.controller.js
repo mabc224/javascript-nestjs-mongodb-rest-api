@@ -2,6 +2,7 @@ import {
   Controller, Dependencies, Bind, Get, Post, Put, Delete,
   Query, Body, Param, HttpCode, HttpException, HttpStatus, Logger,
 } from '@nestjs/common';
+import moment from 'moment';
 import RestaurantService from '../services/restaurant.service';
 
 @Controller({
@@ -59,12 +60,15 @@ export default class RestaurantController {
   @Post('/')
   @Bind(Body())
   async createRestaurant(body) {
-    const { name, picture, address } = body;
+    const {
+      name, picture, address, openingHours,
+    } = body;
 
     const createRequest = {
       name: this.nameFromApi(name),
       picture,
       address,
+      openingHours,
     };
 
     const restaurant = await this.restaurantService.createRestaurant(createRequest);
@@ -157,6 +161,7 @@ export default class RestaurantController {
       name,
       picture,
       address,
+      openingHours,
       createdAt,
       updatedAt,
     } = restaurant;
@@ -166,8 +171,54 @@ export default class RestaurantController {
       name,
       picture,
       address,
+      openingHours: this.getApiOpeningHours(openingHours),
       createdAt: new Date(createdAt * 1000),
       updatedAt: new Date(updatedAt * 1000),
     };
+  }
+
+  getApiOpeningHours(openingHours = []) {
+    return openingHours.map((item) => {
+      const { dayOfWeek, open, close } = item;
+      return {
+        dayOfWeek: this.getWeekdays(dayOfWeek),
+        open: this.getTimeFromMins(open),
+        close: this.getTimeFromMins(close),
+      };
+    });
+  }
+
+  getWeekdays(dayOfWeek) {
+    let day;
+    switch (dayOfWeek) {
+      case 0:
+        day = 'Sunday';
+        break;
+      case 1:
+        day = 'Monday';
+        break;
+      case 2:
+        day = 'Tuesday';
+        break;
+      case 3:
+        day = 'Wednesday';
+        break;
+      case 4:
+        day = 'Thursday';
+        break;
+      case 5:
+        day = 'Friday';
+        break;
+      case 6:
+        day = 'Saturday';
+        break;
+      default:
+        day = '';
+    }
+    return day;
+  }
+
+  getTimeFromMins(mins) {
+    return moment.utc().startOf('day').add(mins, 'minutes').format('hh:mm A');
   }
 }
