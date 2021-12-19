@@ -1,6 +1,6 @@
 # Restaurant Rest API
 
-Rest api of restaurant using Nestjs with javascript flavour & mongoose
+Sample Rest api of restaurant written in Javascript using Nestjs & mongoose
 
 ## Configuration
 
@@ -16,6 +16,8 @@ $ npm install
 ## Running the app
 
 ```bash
+create `.env` file in root and copy content from `.env_example` and configure values.
+
 # development
 $ npm run start
 
@@ -82,6 +84,12 @@ Import open api docs into postman as collection.
       ├── restaurant.service.js
       └── restaurant.service.spec.js
 ```
+
+## Tech Stack
+- Node.js
+- Nest.js (Javascript)
+- Mongoose (MongoDb)
+- Winston (Logging)
 
 ### Next Steps
 
